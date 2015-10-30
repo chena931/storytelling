@@ -12,26 +12,126 @@
 
   //global variables go here
 
-  //only use this function if you need to load images
-  //remember you will need to use Anvil to run your local server
-	// function preload(){
+  var gretel;
+  var candyhouse;
+  var witch;
+  var menu;
 
-	// }
+  var hunger =1;
+
+  var gretelX = 0;
+  var gretelY = 0;
+  var speedA = 10;
+
+  var witchX = 0;
+  var witchY = 0;
+  var speedB = 5;
 
 
-	//Set up your canvas
+	function preload(){
+		gretel = loadImage("assets/gretel.png");
+		candyhouse = loadImage("assets/house.png");
+		witch = loadImage("assets/witch.png");
+		menu = loadImage("assets/menu.png");
+	}
+
+
+	
 	function setup() {
-		createCanvas(windowWidth, windowHeight);
-
+		createCanvas(candyhouse.width, candyhouse.height);
+		imageMode(CENTER);
+		noCursor();
 	}
 
 
-	//Draw your story
 	function draw() {
+		image(candyhouse,640,360);
+		image(menu,1100,200);
+
+		stroke("red");
+		strokeWeight(3);
+		noFill();
+		rect(20,50,60,310);
+		fill("red");
+		strokeWeight(1);
+		textSize(18);
+		text("Full Stomach Meter",20,42);
+
+		if (gretelX < mouseX){
+			gretelX +=speedA;
+		}
+		if (gretelX > mouseX){
+			gretelX -=speedA;
+		}
+		if (gretelY < mouseY){
+			gretelY +=speedA;
+		}
+		if (gretelY > mouseY){
+			gretelY -=speedA;
+		}
+		image(gretel, gretelX, gretelY);
+
+		if (witchX < mouseX){
+			witchX +=speedB;
+		}
+		if (witchX > mouseX){
+			witchX -=speedB;
+		}
+		if (witchY < mouseY){
+			witchY +=speedB;
+		}
+		if (witchY > mouseY){
+			witchY -=speedB;
+		}
+
+		if(hunger==1){
+			
+			fill("red");
+			textSize(20);
+			text("You're hungry. Eat the cookie.",300,20);
+		}else if (hunger ==2){
+			fill("red");
+			strokeWeight(0);
+			ellipse(50,300,50,50);
+			fill("red");
+			textSize(20);
+			text("Still hungry? Try the muffin.",300,20);
+		}else if (hunger ==3){
+			fill("red");
+			strokeWeight(0);
+			ellipse(50,300,50,50);
+			ellipse(50,200,50,50);
+			fill("red");
+			textSize(20);
+			text("Maybe just a bit more... Like that cake for example.",300,20);
+		}else if (hunger ==4){
+			fill("red");
+			strokeWeight(0);
+			ellipse(50,300,50,50);
+			ellipse(50,200,50,50);
+			ellipse(50,100,50,50);
+			textSize(20);
+			text("You're full but now the witch is here. RUN!",300,20);
+			image(witch,witchX,witchY);
+		}
+		
+
+
+
 
 	}
 
-	//add your functions
+	function keyPressed(){
+		if(keyCode == DOWN_ARROW){
+			hunger = 1;
+		}else if(keyCode == LEFT_ARROW){
+			hunger = 2;
+		}else if(keyCode == UP_ARROW){
+			hunger =3;
+		}else if(keyCode == RIGHT_ARROW){
+			hunger =4;
+		}
+	}
 
 
 
